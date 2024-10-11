@@ -1,0 +1,47 @@
+#NewBasketFormWrapper label {
+  font-size: 12px;
+  opacity: 0.5;
+}
+#NewBasketFormWrapper input,
+#NewBasketFormWrapper select,
+#NewBasketFormWrapper textarea {
+  border: 1px solid #e6e6e6;
+  font-size: 13px;
+  padding: 13px;
+  border-radius: 3px;
+  width: 100% !important;
+  background-color: white;
+  outline: none;
+  resize: none;
+}
+.marginInputsWrapper input,
+.marginInputsWrapper select,
+.marginInputsWrapper textarea {
+  margin: 0 0 15px 0 !important;
+}
+#scheduleTable {
+  border-radius: 3px;
+  overflow: hidden;
+}
+#scheduleTable td,
+#scheduleTable th {
+  width: 33.33% !important;
+  font-size: 13px;
+  font-weight: 400;
+  padding: 10px;
+  background-color: white;
+  border: 1px solid #e6e6e6;
+}
+#scheduleTable td {
+  opacity: 0.5;
+}
+.QAInputs {
+  margin-bottom: 5px !important;
+}
+#addQABtn {
+  padding: 5px 20px;
+  font-size: 12px;
+  background-color: var(--primaryColor);
+  color: white;
+  border-radius: 3px;
+}

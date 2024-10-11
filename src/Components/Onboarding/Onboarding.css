@@ -1,0 +1,27 @@
+.onBoardWrapper p {
+  color: white;
+}
+.onBoardImg {
+  width: 100%;
+  max-width: 500px;
+  margin-bottom: 25px;
+}
+.onBoardTitle {
+  font-size: 40px;
+  font-weight: 800;
+  line-height: 50px;
+  margin-bottom: 10px;
+}
+.onBoardSubTitle {
+  font-size: 15px;
+  opacity: 0.5;
+  line-height: 20px;
+}
+
+.onBoardBtn {
+  background-color: white;
+  color: Black;
+  width: 100%;
+  padding: 7px 0;
+  border-radius: 3px;
+}

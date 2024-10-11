@@ -1,0 +1,61 @@
+.basketDisplayWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: white;
+  border: 1px solid #e6e6e6;
+  border-radius: 3px;
+  padding: 10px 8px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+.basketDLeft {
+  width: 90%;
+}
+.basketDetails {
+  flex-grow: 1;
+}
+.basketDLeft,
+.basketTimeline {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.basketTimer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  min-width: 50px;
+  min-height: 50px;
+  border-radius: 3px;
+  .daysLeft {
+    font-size: 18px;
+    line-height: 22px;
+    font-weight: 600;
+    opacity: 0.5;
+  }
+  .daysLeftText {
+    font-size: 7px;
+    opacity: 0.5;
+  }
+}
+.basketTitle {
+  font-size: 15px;
+  font-weight: 500;
+}
+.basketTimeline p {
+  font-size: 10px;
+  opacity: 0.5;
+}
+.basketProgressBar {
+  height: 2px;
+  background-color: #27ae60;
+  bottom: 0;
+  left: 0;
+}
+
+.basketRight img {
+  width: 10px !important;
+  height: auto;
+}

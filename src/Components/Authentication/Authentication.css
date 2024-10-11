@@ -1,0 +1,52 @@
+.authenticationFormWrapper input,
+.authenticationSubmitBtn {
+  width: 100%;
+  padding: 13px !important;
+  margin: 15px 0 2px 0 !important;
+  border-radius: 3px;
+  border: none;
+  outline: none;
+  color: black;
+}
+
+.authenticationSubmitBtn {
+  background-color: var(--primaryColor);
+  color: white;
+}
+.errorMessage {
+  color: red;
+  font-size: 13px;
+}
+.errorBorder {
+  border: 1px solid red !important;
+}
+
+.redirectionLink {
+  font-size: 14px;
+  text-align: center;
+  margin: 20px 0;
+  span {
+    color: var(--primaryColor);
+  }
+}
+
+.otherAuthBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background-color: white;
+  width: 100%;
+  padding: 10px;
+  border-radius: 3px;
+  margin-bottom: 17px;
+  img {
+    height: 30px;
+    width: auto;
+  }
+  span {
+    font-weight: 500;
+    font-size: 14px;
+    color: black !important;
+  }
+}

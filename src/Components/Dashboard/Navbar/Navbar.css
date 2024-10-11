@@ -1,0 +1,24 @@
+.drawerHeader p,
+.drawerMenu p {
+  color: black !important;
+}
+.menuItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 0;
+}
+.menuItemLeft {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  img {
+    width: 20px;
+  }
+}
+.arrowIcon {
+  width: 15px;
+}
+#logoutBtn {
+  color: white !important;
+}

@@ -1,0 +1,46 @@
+{
+    "notifications": [
+        {
+            "id": 1,
+            "title": "Assignment Deadline Reminder",
+            "subTitle": "Complete your Math Assignment",
+            "to": "/assignments",
+            "status": "unread"
+        },
+        {
+            "id": 2,
+            "title": "New Challenge Available",
+            "subTitle": "Enroll in Data Structures Challenge",
+            "to": "/challenges",
+            "status": "unread"
+        },
+        {
+            "id": 3,
+            "title": "Project Submission Reminder",
+            "subTitle": "Submit your AI project",
+            "to": "/projects",
+            "status": "read"
+        },
+        {
+            "id": 4,
+            "title": "Event Invitation",
+            "subTitle": "Join the webinar on Machine Learning",
+            "to": "/events",
+            "status": "read"
+        },
+        {
+            "id": 5,
+            "title": "Profile Update Required",
+            "subTitle": "Update your contact details",
+            "to": "/profile",
+            "status": "read"
+        },
+        {
+            "id": 6,
+            "title": "Feedback Request",
+            "subTitle": "Provide feedback on the recent project",
+            "to": "/feedback",
+            "status": "read"
+        }
+    ]
+}
