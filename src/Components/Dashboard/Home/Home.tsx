@@ -1,17 +1,8 @@
 import "./Home.css";
 import Navbar from "../Navbar/Navbar";
 import DisplayBasket from "../DisplayBasket/DisplayBasket";
-import basketsData from "../../../assets/Data/liveBaskets.json";
 import { Link } from "react-router-dom";
-
-interface BasketInterface {
-  id: number;
-  title: string;
-  startDate: string;
-  endDate: string;
-  progress: number;
-}
-const Livebaskets: BasketInterface[] = basketsData.baskets;
+import userData from "@/assets/Data/userData";
 
 export default function Home() {
   return (
@@ -33,17 +24,20 @@ export default function Home() {
         <div className="liveBaskets mb-7">
           <p className="subTitle mb-2">Live Baskets</p>
           <ul>
-            {Livebaskets.map((basket) => (
-              <DisplayBasket
-                key={basket.id}
-                basketType="live"
-                id={basket.id}
-                basketTitle={basket.title}
-                startDate={basket.startDate}
-                width={basket.progress}
-                endDate={basket.endDate}
-              />
-            ))}
+            {Object.values(userData.allbaskets).map(
+              (basket) =>
+                basket.status !== "completed" && (
+                  <DisplayBasket
+                    key={basket.basketID}
+                    basketType="pending"
+                    id={basket.basketID}
+                    basketTitle={basket.basketTitle}
+                    startDate={basket.startDate}
+                    width={basket.progress}
+                    endDate={basket.endDate}
+                  />
+                )
+            )}
           </ul>
         </div>
 
@@ -51,17 +45,20 @@ export default function Home() {
         <div className="liveBaskets mb-7">
           <p className="subTitle mb-2">Completed Baskets</p>
           <ul>
-            {Livebaskets.map((basket) => (
-              <DisplayBasket
-                key={basket.id}
-                basketType="completed"
-                id={basket.id}
-                basketTitle={basket.title}
-                startDate={basket.startDate}
-                width={basket.progress}
-                endDate={basket.endDate}
-              />
-            ))}
+            {Object.values(userData.allbaskets).map(
+              (basket) =>
+                basket.status === "completed" && (
+                  <DisplayBasket
+                    key={basket.basketID}
+                    basketType="completed"
+                    id={basket.basketID}
+                    basketTitle={basket.basketTitle}
+                    startDate={basket.startDate}
+                    width={basket.progress}
+                    endDate={basket.endDate}
+                  />
+                )
+            )}
           </ul>
         </div>
       </div>

@@ -29,7 +29,7 @@ export default function Navbar() {
 
   return (
     <div className="sticky top-0 bg-slate-100 px-4 z-50 border-b mb-3">
-      <div className="flex align-middle justify-between py-4">
+      <div className="flex align-middle justify-between py-3">
         <img
           src={navLogo}
           alt=""

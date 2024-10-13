@@ -1,17 +1,9 @@
 import Navbar from "../Navbar/Navbar";
-import basketsData from "../../../assets/Data/liveBaskets.json";
 import DisplayBasket from "../DisplayBasket/DisplayBasket";
-
-interface BasketInterface {
-  id: number;
-  title: string;
-  startDate: string;
-  endDate: string;
-  progress: number;
-}
-const CompletedBasketsData: BasketInterface[] = basketsData.baskets;
+import userData from "@/assets/Data/userData";
 
 export default function CompletedBaskets() {
+  const allBasketsData = userData.allbaskets;
   return (
     <div className="bg-white h-screen">
       <Navbar />
@@ -19,17 +11,20 @@ export default function CompletedBaskets() {
       <div className="px-4">
         <p className="subTitle mb-2">Completed Baskets</p>
         <div>
-          {CompletedBasketsData.map((basket) => (
-            <DisplayBasket
-              key={basket.id}
-              basketType="completed"
-              id={basket.id}
-              basketTitle={basket.title}
-              startDate={basket.startDate}
-              width={basket.progress}
-              endDate={basket.endDate}
-            />
-          ))}
+          {Object.values(allBasketsData).map(
+            (basket) =>
+              basket.status === "completed" && (
+                <DisplayBasket
+                  key={basket.basketID}
+                  basketType="completed"
+                  id={basket.basketID}
+                  basketTitle={basket.basketTitle}
+                  startDate={basket.startDate}
+                  width={basket.progress}
+                  endDate={basket.endDate}
+                />
+              )
+          )}
         </div>
       </div>
     </div>

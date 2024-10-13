@@ -1,0 +1,28 @@
+{
+    "questions": [
+        {
+            "question": "What is React?",
+            "to": "home"
+        },
+        {
+            "question": "How does useState work?",
+            "to": "home"
+        },
+        {
+            "question": "What is the difference between props and state?",
+            "to": "home"
+        },
+        {
+            "question": "How do you create a component in React?",
+            "to": "home"
+        },
+        {
+            "question": "What is JSX?",
+            "to": "home"
+        },
+        {
+            "question": "How do you pass data between components in React?",
+            "to": "home"
+        }
+    ]
+}

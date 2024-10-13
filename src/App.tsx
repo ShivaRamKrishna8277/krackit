@@ -12,6 +12,7 @@ import LiveBaskets from "./Components/Dashboard/LiveBaskets/LiveBaskets";
 import CompletedBaskets from "./Components/Dashboard/CompletedBaskets/CompletedBaskets";
 import Notifications from "./Components/Dashboard/Notifications/Notifications";
 import Settings from "./Components/Dashboard/Settings/Settings";
+import Read from "./Components/Dashboard/Read/Read";
 
 function App() {
   return (
@@ -23,6 +24,10 @@ function App() {
         <Route path="/signupsuccess" element={<ConfettiSideCannons />}></Route>
         <Route path="/home" element={<Home />}></Route>
         <Route path="/basket/:id" element={<BasketDetail />} />
+        <Route
+          path="/read/:id/:day/:timing/:questionIndex"
+          element={<Read />}
+        />
         <Route path="/create-new-basket" element={<CreateBasket />} />
         <Route path="/live" element={<LiveBaskets />} />
         <Route path="/completed" element={<CompletedBaskets />} />

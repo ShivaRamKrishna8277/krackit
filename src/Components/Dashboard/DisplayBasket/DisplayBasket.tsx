@@ -62,7 +62,7 @@ export default function DisplayBasket({
     <Link to={`/basket/${id}`}>
       <div className="basketDisplayWrapper relative">
         <div className="basketDLeft">
-          {basketType === "live" ? (
+          {basketType === "pending" ? (
             <div
               className="basketTimer"
               style={{ backgroundColor: `${randomColor}` }}
