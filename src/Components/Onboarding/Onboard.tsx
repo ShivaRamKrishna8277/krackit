@@ -2,9 +2,10 @@ import { useState } from "react";
 import onBoard1 from "../../assets/images/onBoard1.png";
 import onBoard2 from "../../assets/images/onBoard2.png";
 import "./Onboarding.css";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function OnboardOne() {
+  const navigate = useNavigate();
   const [onBoard, setOnBoard] = useState(1);
   return (
     <div
@@ -33,9 +34,12 @@ export default function OnboardOne() {
               Next
             </button>
           ) : (
-            <Link to={"/login"}>
-              <button className="onBoardBtn">Get Started</button>
-            </Link>
+            <button
+              className="onBoardBtn"
+              onClick={() => navigate("/login", { replace: true })}
+            >
+              Get Started
+            </button>
           )}
         </div>
       </div>

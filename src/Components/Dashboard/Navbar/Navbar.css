@@ -19,6 +19,17 @@
 .arrowIcon {
   width: 15px;
 }
+
+.profileItem {
+  width: 100%;
+}
+.email {
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 #logoutBtn {
   color: white !important;
 }

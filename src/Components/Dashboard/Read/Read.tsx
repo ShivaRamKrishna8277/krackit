@@ -1,46 +1,57 @@
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import Button from "@mui/material/Button";
+import Button from "react-bootstrap/Button";
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { Link } from "react-router-dom";
-import userData from "@/assets/Data/userData";
-import { Timing } from "@/assets/Data/userData"; // Ensure you're importing your types
+import {
+  fetchQuestionDetails,
+  Timing,
+  updateStatus,
+} from "@/assets/Data/userData";
+import { useEffect, useState } from "react";
+import Loader from "@/Components/Loaders/ContentLoader";
 
 export default function Read() {
   const { id, day, timing, questionIndex } = useParams<{
-    id: string;
-    day: string;
-    timing: string;
-    questionIndex: string;
+    id: string | undefined;
+    day: string | undefined;
+    timing: string | undefined;
+    questionIndex: string | undefined;
   }>();
 
-  const Index = Number(questionIndex);
+  const navigate = useNavigate();
+  const [timingData, setTimingData] = useState<Timing | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  // Access the basket from userData
-  const basket = userData.allbaskets[id as keyof typeof userData.allbaskets];
-  if (!basket) {
-    return <p>Basket not found</p>;
+  useEffect(() => {
+    // Check if all parameters are defined
+    if (id && day && timing) {
+      const fetchDetails = async () => {
+        const details = await fetchQuestionDetails(id, day, timing);
+        details !== undefined && setTimingData(details); // Set the fetched timing data
+        setLoading(false); // Set loading to false after fetching
+      };
+      fetchDetails();
+    } else {
+      console.log("One or more parameters are undefined.");
+      setLoading(false); // Set loading to false even if parameters are missing
+    }
+  }, [id, day, timing, questionIndex]);
+
+  // Handle loading state
+  if (loading) {
+    return <Loader />;
   }
-
-  // Access the correct day's schedule
-  const daySchedule =
-    basket.questionsSchedule[day as keyof typeof basket.questionsSchedule];
-  if (!daySchedule) {
-    return <p>Day schedule not found</p>;
-  }
-
-  // Access the correct timing and assert its type
-  const timingData = daySchedule.timings[
-    timing as keyof typeof daySchedule.timings
-  ] as Timing; // Assert type here
+  // Handle timing data not found
   if (!timingData) {
     return <p>Timing not found</p>;
   }
 
-  const questions = timingData.questions; // Now TypeScript should recognize questions
-  const maxQuestionIndex = questions.length; // Directly get the length of the array
+  const questions = timingData.questions;
+  const maxQuestionIndex = questions.length;
+  const Index = Number(questionIndex);
   // Determine bounds
   const isLowerBound = Index === 0;
   const isUpperBound = Index + 1 === maxQuestionIndex;
@@ -48,6 +59,20 @@ export default function Read() {
   const questionData = questions[Index]; // Use Index instead of questionIndex
   if (!questionData) {
     return <p>Question not found</p>;
+  }
+
+  // Function to update question status
+  async function updateQuestionStatus() {
+    const isUpdated = await updateStatus(id, day, timing, questionIndex);
+    if (isUpdated && !isUpperBound) {
+      navigate(`/read/${id}/${day}/${timing}/${Index + 1}`, {
+        replace: true,
+      });
+    } else {
+      navigate(`/basket/${id}`, {
+        replace: true,
+      });
+    }
   }
 
   return (
@@ -62,32 +87,36 @@ export default function Read() {
       </div>
       <div className="readNavBtns flex items-center justify-between p-3">
         <Button
-          variant="outlined"
-          size="small"
-          startIcon={<KeyboardDoubleArrowLeftIcon />}
+          variant="primary"
+          size="sm"
           disabled={isLowerBound}
-          component={isLowerBound ? "div" : Link}
-          to={
-            !isLowerBound
-              ? `/read/${id}/${day}/${timing}/${Index - 1}`
-              : undefined
-          }
+          onClick={() => {
+            if (!isLowerBound) {
+              navigate(`/read/${id}/${day}/${timing}/${Index - 1}`, {
+                replace: true,
+              });
+            }
+          }}
+          className="flex items-center gap-1"
         >
+          <KeyboardDoubleArrowLeftIcon sx={{ fontSize: 20 }} />
           Previous
         </Button>
         <Button
-          variant="outlined"
-          size="small"
-          endIcon={<KeyboardDoubleArrowRightIcon />}
+          variant="primary"
+          size="sm"
           disabled={isUpperBound}
-          component={isUpperBound ? "div" : Link}
-          to={
-            !isUpperBound
-              ? `/read/${id}/${day}/${timing}/${Index + 1}`
-              : undefined
-          }
+          onClick={() => {
+            if (!isUpperBound) {
+              navigate(`/read/${id}/${day}/${timing}/${Index + 1}`, {
+                replace: true,
+              });
+            }
+          }}
+          className="flex items-center gap-1"
         >
           Next
+          <KeyboardDoubleArrowRightIcon sx={{ fontSize: 20 }} />
         </Button>
       </div>
       <div className="px-3 mb-2">
@@ -106,14 +135,14 @@ export default function Read() {
       </div>
       <div className="px-3">
         <Button
-          className="my-3"
-          variant="contained"
+          className="my-3 flex items-center gap-2"
+          variant="success"
+          size="sm"
           color="success"
-          size="small"
-          startIcon={<DoneAllIcon />}
-          disableElevation
           disabled={questionData.status === "completed"}
+          onClick={() => updateQuestionStatus()}
         >
+          <DoneAllIcon sx={{ fontSize: 20 }} />
           {questionData.status === "pending"
             ? "Mark as completed"
             : "Completed"}

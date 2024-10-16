@@ -1,11 +1,12 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./Authentication.css";
 import { useForm, SubmitHandler } from "react-hook-form";
-import gooogleIcon from "../../assets/icons/Google.png";
-import facebookIcon from "../../assets/icons/Facebook.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
+import Spinner from "react-bootstrap/Spinner";
 import { useState } from "react";
+import { signUp } from "./authService";
+import { FirebaseError } from "firebase/app";
 
 type Inputs = {
   email: string;
@@ -19,13 +20,40 @@ export default function Signup() {
     register,
     handleSubmit,
     watch,
+    setError,
     formState: { errors },
   } = useForm<Inputs>();
 
   const navigate = useNavigate();
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log(data);
-    navigate("/signupsuccess");
+  const [isSigningUp, setIsSigningUp] = useState(false);
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    try {
+      setIsSigningUp(true);
+      await signUp(data.email, data.password, data.fullname);
+      navigate("/signupsuccess", { replace: true });
+      // You can now handle any redirects or further actions
+    } catch (error) {
+      setIsSigningUp(false);
+
+      // Assert that the error is of type FirebaseError
+      if (error instanceof FirebaseError) {
+        if (error.code === "auth/invalid-email") {
+          setError("email", {
+            type: "manual",
+            message: "Invalid Email Address",
+          });
+        } else if (error.code === "auth/email-already-in-use") {
+          setError("email", {
+            type: "manual",
+            message: "Email is already in use",
+          });
+        } else {
+          console.error("Sign-up error:", error.message);
+        }
+      } else {
+        console.error("Unexpected error:", error);
+      }
+    }
   };
 
   const password = watch("password");
@@ -117,25 +145,31 @@ export default function Signup() {
               {errors.confirmpassword.message}
             </span>
           )}
-          <button className="authenticationSubmitBtn">Create Account</button>
+          <button
+            className="authenticationSubmitBtn"
+            disabled={isSigningUp && true}
+          >
+            {isSigningUp ? (
+              <>
+                <Spinner
+                  as="span"
+                  animation="border"
+                  size="sm"
+                  role="status"
+                  aria-hidden="true"
+                />
+                <span className="ps-2">Creating Account...</span>
+              </>
+            ) : (
+              "Create Account"
+            )}
+          </button>
         </form>
       </div>
       <p className="redirectionLink">
         Already have an account?{" "}
-        <span>
-          <Link to={"/login"}>Login</Link>
-        </span>
+        <span onClick={() => navigate("/login", { replace: true })}>Login</span>
       </p>
-      <div className="otherAuthWrapper">
-        <button className="otherAuthBtn">
-          <img src={gooogleIcon} alt="" className="otherAuthIcon" />
-          <span>Continue with Google</span>
-        </button>
-        <button className="otherAuthBtn">
-          <img src={facebookIcon} alt="" className="otherAuthIcon" />
-          <span>Continue with Facebook</span>
-        </button>
-      </div>
     </div>
   );
 }

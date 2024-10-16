@@ -2,3 +2,9 @@
   width: 100vw;
   height: 100vh;
 }
+
+.emptyImg {
+  max-width: 140px;
+  height: auto;
+  margin: 0 auto;
+}

@@ -8,18 +8,19 @@ import { ConfettiSideCannons } from "./Components/Authentication/SignupSuccess";
 import BasketDetail from "./Components/Dashboard/BasketDetails/BasketDetails";
 import Home from "./Components/Dashboard/Home/Home";
 import CreateBasket from "./Components/Dashboard/CreateBasket/CreateBasket";
-import LiveBaskets from "./Components/Dashboard/LiveBaskets/LiveBaskets";
-import CompletedBaskets from "./Components/Dashboard/CompletedBaskets/CompletedBaskets";
-import Notifications from "./Components/Dashboard/Notifications/Notifications";
-import Settings from "./Components/Dashboard/Settings/Settings";
 import Read from "./Components/Dashboard/Read/Read";
+import AuthStateCheck from "./Components/Loaders/AuthLoader";
+import ForgotPassword from "./Components/Authentication/ForgotPassword";
+import TypeBaskets from "./Components/Dashboard/TypeBakset/TypeBasket";
 
 function App() {
   return (
     <div id="body" className="mx-auto" style={{ maxWidth: "1028px" }}>
       <Routes>
-        <Route path="/" element={<OnboardOne />}></Route>
+        <Route path="/" element={<AuthStateCheck />}></Route>
+        <Route path="/onboard" element={<OnboardOne />}></Route>
         <Route path="/login" element={<Login />}></Route>
+        <Route path="/forgot-password" element={<ForgotPassword />}></Route>
         <Route path="/signup" element={<Signup />}></Route>
         <Route path="/signupsuccess" element={<ConfettiSideCannons />}></Route>
         <Route path="/home" element={<Home />}></Route>
@@ -29,17 +30,8 @@ function App() {
           element={<Read />}
         />
         <Route path="/create-new-basket" element={<CreateBasket />} />
-        <Route path="/live" element={<LiveBaskets />} />
-        <Route path="/completed" element={<CompletedBaskets />} />
-        <Route
-          path="/notifications"
-          element={
-            <div className="bg-white">
-              <Notifications />
-            </div>
-          }
-        />
-        <Route path="/settings" element={<Settings />} />
+        <Route path="/live" element={<TypeBaskets type="pending" />} />
+        <Route path="/completed" element={<TypeBaskets type="completed" />} />
       </Routes>
     </div>
   );

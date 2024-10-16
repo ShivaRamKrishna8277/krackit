@@ -1,13 +1,14 @@
 import "./BasketDetails.css";
 import Navbar from "../Navbar/Navbar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Accordion from "react-bootstrap/Accordion";
 import BasketListQuestion from "./basketListQuestion";
-import userData from "@/assets/Data/userData";
-import { useParams } from "react-router";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import { useParams } from "react-router";
+import { Basket, fetchBasketById } from "@/assets/Data/userData";
+import Loader from "@/Components/Loaders/ContentLoader";
 
-type TimingData = {
+export type TimingData = {
   status: string;
   questions: { question: string; answer: string; status: string }[];
 };
@@ -15,16 +16,31 @@ type TimingData = {
 export default function BasketDetail() {
   // Get the 'id' param from the URL
   const { id } = useParams<{ id: string | undefined }>();
-  // Ensure basket is found in userData
-  const basket = id
-    ? userData.allbaskets[id as keyof typeof userData.allbaskets]
-    : undefined;
+
+  const [basket, setBasket] = useState<Basket | null>(null); // Define the state for the basket
+  const [loading, setLoading] = useState(true); // Add loading state
+  const [showMoreDetails, setShowMoreDetails] = useState(false); // Moved this up to the top
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (id) {
+        const fetchedBasket = await fetchBasketById(id);
+        setBasket(fetchedBasket);
+      }
+      setLoading(false); // Set loading to false after fetching
+    };
+
+    fetchData();
+  }, [id]);
+  // Handle loading state
+  if (loading) {
+    return <Loader />;
+  }
+  // Handle basket not found
   if (!basket) {
     return <p>Basket not found</p>;
   }
   const questionsSchedule = basket.questionsSchedule;
-
-  const [showMoreDetails, setShowMoreDetails] = useState(false);
 
   return (
     <div>
@@ -99,7 +115,6 @@ export default function BasketDetail() {
                       const timingData = daySchedule[
                         timeKey as keyof typeof daySchedule
                       ] as TimingData;
-
                       // Ensure that timingData is properly typed and check if questions exist
                       return (
                         <Accordion.Item
@@ -121,25 +136,33 @@ export default function BasketDetail() {
                           </Accordion.Header>
                           <Accordion.Body>
                             <ul>
-                              {timingData?.questions?.map(
-                                (
-                                  questionData: {
-                                    question: string;
-                                    status: string;
-                                  },
-                                  index: number
-                                ) => (
-                                  <li key={index}>
-                                    <BasketListQuestion
-                                      question={questionData.question}
-                                      index={index}
-                                      id={id ? id : ""}
-                                      day={dayKey}
-                                      time={timeKey}
-                                      status={questionData.status}
-                                    />
-                                  </li>
+                              {timingData?.questions?.length > 0 ? (
+                                timingData.questions.map(
+                                  (
+                                    questionData: {
+                                      question: string;
+                                      status: string;
+                                    },
+                                    index: number
+                                  ) => (
+                                    <li key={index}>
+                                      <BasketListQuestion
+                                        question={questionData.question}
+                                        index={index}
+                                        id={id ? id : ""}
+                                        day={dayKey}
+                                        time={timeKey}
+                                        status={questionData.status}
+                                      />
+                                    </li>
+                                  )
                                 )
+                              ) : (
+                                <li>
+                                  <p className="text-center py-2 opacity-50">
+                                    No questions available.
+                                  </p>
+                                </li>
                               )}
                             </ul>
                           </Accordion.Body>

@@ -4,32 +4,42 @@
 
 @font-face {
   font-family: "Satoshi";
-  src: url("./fonts/Satoshi-Regular.otf") format("opentype");
-  font-weight: normal;
+  src: url("./fonts/Satoshi-Regular.woff2") format("woff2"),
+    url("./fonts/Satoshi-Regular.woff") format("woff"),
+    url("./fonts/Satoshi-Regular.otf") format("opentype");
+  font-weight: normal; /* 400 */
   font-style: normal;
 }
 @font-face {
   font-family: "Satoshi";
-  src: url("./fonts/Satoshi-Medium.otf") format("opentype");
-  font-weight: 500; /* or 'medium' */
+  src: url("./fonts/Satoshi-Medium.woff2") format("woff2"),
+    url("./fonts/Satoshi-Medium.woff") format("woff"),
+    url("./fonts/Satoshi-Medium.otf") format("opentype");
+  font-weight: 500; /* Medium */
   font-style: normal;
 }
 @font-face {
   font-family: "Satoshi";
-  src: url("./fonts/Satoshi-Light.otf") format("opentype");
-  font-weight: 300;
+  src: url("./fonts/Satoshi-Light.woff2") format("woff2"),
+    url("./fonts/Satoshi-Light.woff") format("woff"),
+    url("./fonts/Satoshi-Light.otf") format("opentype");
+  font-weight: 300; /* Light */
   font-style: normal;
 }
 @font-face {
   font-family: "Satoshi";
-  src: url("./fonts/Satoshi-Bold.otf") format("opentype");
-  font-weight: 700;
+  src: url("./fonts/Satoshi-Bold.woff2") format("woff2"),
+    url("./fonts/Satoshi-Bold.woff") format("woff"),
+    url("./fonts/Satoshi-Bold.otf") format("opentype");
+  font-weight: 700; /* Bold */
   font-style: normal;
 }
 @font-face {
   font-family: "Satoshi";
-  src: url("./fonts/Satoshi-Black.otf") format("opentype");
-  font-weight: 900;
+  src: url("./fonts/Satoshi-Black.woff2") format("woff2"),
+    url("./fonts/Satoshi-Black.woff") format("woff"),
+    url("./fonts/Satoshi-Black.otf") format("opentype");
+  font-weight: 900; /* Black */
   font-style: normal;
 }
 @layer base {

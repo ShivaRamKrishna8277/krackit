@@ -40,7 +40,7 @@ export function ConfettiSideCannons() {
 
   const navigate = useNavigate();
   setTimeout(() => {
-    navigate("/home");
+    navigate("/home", { replace: true });
   }, 5000);
 
   return (
