@@ -22,13 +22,15 @@ export default function BasketListQuestion({
   return (
     <Link to={`/read/${id}/${day}/${time}/${index}`}>
       <div className="ListQuestion flex items-center justify-between border-b py-2">
-        <span>
-          {status === "completed" ? (
-            <CheckCircleIcon color="success" fontSize="small" />
-          ) : (
-            `${index + 1} . `
-          )}{" "}
-          {question}
+        <span className="flex items-center gap-1">
+          <span>
+            {status === "completed" ? (
+              <CheckCircleIcon color="success" fontSize="small" />
+            ) : (
+              `${index + 1} . `
+            )}
+          </span>
+          <span>{question}</span>
         </span>
         <img src={openArrow} alt="" style={{ width: "10px" }} />
       </div>

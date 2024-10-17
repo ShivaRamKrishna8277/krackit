@@ -25,6 +25,7 @@ export interface Basket {
   status: string;
   questionsDaily: number;
   totalQuestions: number;
+  completedQuestions: number;
   progress: number;
   schedule: { time: string; questionsCount: number }[];
   questionsSchedule: {
@@ -134,7 +135,6 @@ export const fetchQuestionDetails = async (
   }
 };
 
-// Function to update stauts
 // Function to update status at all levels
 const markQuestionAsCompleted = async (
   uid: string,
@@ -151,13 +151,27 @@ const markQuestionAsCompleted = async (
       if (timings) {
         const question = timings.questions[index];
         if (question) {
-          // Update the local data for the specific question
+          // Update the local data for the specific question and completed questions
           question.status = "completed";
-          // Update the question status in Firebase
+          const completedQuestionsBefore = basket.completedQuestions;
+          const completedQuestionsAfter = completedQuestionsBefore + 1;
+          basket.completedQuestions = completedQuestionsAfter; // Increment locally
+
+          // Calculate updated progress percentage
+          const updatedProgress =
+            (completedQuestionsAfter / basket.totalQuestions) * 100;
+          basket.progress = updatedProgress;
+          // Firebase references
+          const basketRef = ref(db, `users/${uid}/allbaskets/${basketId}`);
           const questionRef = ref(
             db,
             `users/${uid}/allbaskets/${basketId}/questionsSchedule/${day}/timings/${time}/questions/${index}`
           );
+          // Perform all updates at once in Firebase
+          await update(basketRef, {
+            completedQuestions: completedQuestionsAfter,
+            progress: updatedProgress,
+          });
           await update(questionRef, { status: "completed" });
 
           // Check if all questions for that timing are completed
@@ -192,9 +206,11 @@ const markQuestionAsCompleted = async (
               const allDaysCompleted = Object.values(
                 basket.questionsSchedule
               ).every((daySchedule) => daySchedule.status === "completed");
+
               if (allDaysCompleted) {
                 // Update the local basket status to "completed"
                 basket.status = "completed";
+
                 // Update the basket status in Firebase
                 const basketRef = ref(
                   db,
@@ -213,7 +229,7 @@ const markQuestionAsCompleted = async (
     }
   }
 };
-
+// Function to update stauts
 export const updateStatus = async (
   basketId: string | undefined,
   day: string | undefined,

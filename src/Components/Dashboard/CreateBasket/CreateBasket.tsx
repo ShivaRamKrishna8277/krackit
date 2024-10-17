@@ -174,6 +174,7 @@ export default function CreateBasket() {
       status: "pending",
       questionsDaily: questionsDaily,
       totalQuestions: qaList.length,
+      completedQuestions: 0,
       progress: 0,
       schedule: scheduleList,
       questionsSchedule: questionsSchedule,
