@@ -3,6 +3,7 @@ import DisplayBasket from "../DisplayBasket/DisplayBasket";
 import { Basket, fetchUserData, getLocalDetails } from "@/assets/Data/userData";
 import { useEffect, useState } from "react";
 import Skeleton from "@mui/material/Skeleton";
+import emptyImg from "../../../assets/images/emptyImage.png";
 
 interface basketType {
   type: string;
@@ -57,10 +58,14 @@ export default function TypeBaskets({ type }: basketType) {
         </p>
         <div>
           {!loading ? (
-            baskets && Object.keys(baskets).length > 0 ? ( // Check if baskets is non-null and has keys
-              Object.values(baskets).map(
-                (basket) =>
-                  basket.status === type && (
+            baskets && Object.keys(baskets).length > 0 ? (
+              // Filter baskets by the type passed as prop (type)
+              Object.values(baskets).filter((basket) => basket.status === type)
+                .length > 0 ? (
+                // If filtered baskets exist, display them
+                Object.values(baskets)
+                  .filter((basket) => basket.status === type)
+                  .map((basket) => (
                     <DisplayBasket
                       key={basket.basketID}
                       basketType={type}
@@ -70,12 +75,31 @@ export default function TypeBaskets({ type }: basketType) {
                       width={basket.progress || 0}
                       endDate={basket.endDate}
                     />
-                  )
+                  ))
+              ) : (
+                // No baskets of the given type are available
+                <div className="pt-4 pb-3 border-t">
+                  <img src={emptyImg} alt="" className="emptyImg" />
+                  <p className="text-xs opacity-50 text-center pt-3">
+                    {type === "pending"
+                      ? "No Live Baskets Available"
+                      : "No Completed Baskets Available"}
+                  </p>
+                </div>
               )
             ) : (
-              <p>No baskets found</p> // Handle the case when there are no baskets
+              // If no baskets are available at all
+              <div className="pt-4 pb-3 border-t">
+                <img src={emptyImg} alt="" className="emptyImg" />
+                <p className="text-xs opacity-50 text-center pt-3">
+                  {type === "pending"
+                    ? "No Live Baskets Available"
+                    : "No Completed Baskets Available"}
+                </p>
+              </div>
             )
           ) : (
+            // Display skeleton loader while loading
             <ul>
               <li>
                 <Skeleton
