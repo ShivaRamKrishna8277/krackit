@@ -69,7 +69,6 @@ export default function TypeBaskets({ type }: basketType) {
                       startDate={basket.startDate}
                       width={basket.progress || 0}
                       endDate={basket.endDate}
-                      basketData={basket}
                     />
                   )
               )
