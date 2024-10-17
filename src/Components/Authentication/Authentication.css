@@ -8,7 +8,9 @@
   outline: none;
   color: black;
 }
-
+.authenticationFormWrapper input {
+  border: 1px solid #e5e5e5;
+}
 .authenticationSubmitBtn {
   background-color: var(--primaryColor);
   color: white;

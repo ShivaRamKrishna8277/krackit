@@ -8,10 +8,7 @@ export default function OnboardOne() {
   const navigate = useNavigate();
   const [onBoard, setOnBoard] = useState(1);
   return (
-    <div
-      className="h-full onBoardWrapper"
-      style={{ backgroundColor: "#0c1419" }}
-    >
+    <div className="h-full onBoardWrapper">
       <div className="h-full flex flex-col items-center justify-between p-6">
         <div className="onBoardHeader">
           <img

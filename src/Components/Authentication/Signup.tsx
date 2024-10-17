@@ -60,10 +60,7 @@ export default function Signup() {
   const [ShowPassword, setShowPassword] = useState(false);
 
   return (
-    <div
-      className="p-6 h-screen text-white"
-      style={{ backgroundColor: "#0c1419" }}
-    >
+    <div className="p-6 h-screen">
       <div className="authenticationHeader">
         <p className="title">Signup</p>
         <p className="subTitle">
