@@ -16,6 +16,7 @@ import { getLocalDetails } from "@/assets/Data/userData";
 import { db } from "../../../../firebase";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import scheduleNotifications from "@/Components/Notifications/ScheduleNotifications";
 
 interface CreateBasketInput {
   basketTitle: string;
@@ -188,11 +189,23 @@ export default function CreateBasket() {
     const newBasketRef = push(ref(db, `users/${uid}/allbaskets`)); // Create a new reference with auto-generated key
 
     try {
-      // Set the basketID in the basket data
-      await set(newBasketRef, { ...newBasketData, basketID: newBasketRef.key });
+      // Capture the key as a string
+      const basketID = newBasketRef.key; // This will be a string like '-O9Uecnd9ov0HS_pQJV_'
+
+      // Check if basketID is valid
+      if (!basketID) {
+        throw new Error("Basket ID could not be retrieved.");
+      }
+
+      // Set the basketID in the basket data as a string
+      await set(newBasketRef, { ...newBasketData, basketID }); // Save the basket data with the correct ID
+
+      // Schedule notifications for the newly created basket
+      await scheduleNotifications({ ...newBasketData, basketID }); // Call scheduleNotifications
+
       notify(); // Notify success
     } catch (error) {
-      console.error("Error creating basket:", error); // Log error
+      alert(`Error creating basket: ,${error}`); // Log error
       toast.error("Failed to create basket, please try again.", {
         position: "top-center",
       });

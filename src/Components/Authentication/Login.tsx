@@ -137,7 +137,7 @@ export default function Login() {
                 <span className="ps-2">Logging In...</span>
               </>
             ) : (
-              "Login In"
+              "Login"
             )}
           </button>
         </form>
