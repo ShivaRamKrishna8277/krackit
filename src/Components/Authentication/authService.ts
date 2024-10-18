@@ -71,6 +71,7 @@ export const logIn = async (email: string, password: string) => {
     localStorage.setItem("details", JSON.stringify(personalDetails));
     return userCredential.user;
   } catch (error) {
+    alert(error);
     throw error;
   }
 };
