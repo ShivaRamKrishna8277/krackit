@@ -16,7 +16,6 @@ import { getLocalDetails } from "@/assets/Data/userData";
 import { db } from "../../../../firebase";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import scheduleNotifications from "@/Components/Notifications/ScheduleNotifications";
 
 interface CreateBasketInput {
   basketTitle: string;
@@ -44,7 +43,7 @@ export default function CreateBasket() {
     { value: 11, label: "November" },
     { value: 12, label: "December" },
   ];
-  const years = Array.from({ length: 10 }, (_, i) => currentYear + i); // Next 10 years
+  const years = Array.from({ length: 1 }, (_, i) => currentYear + i); // Next 10 years
   const [selectedDay, setSelectedDay] = useState("");
   const [selectedMonth, setSelectedMonth] = useState("");
   const [selectedYear, setSelectedYear] = useState("");
@@ -200,9 +199,6 @@ export default function CreateBasket() {
       // Set the basketID in the basket data as a string
       await set(newBasketRef, { ...newBasketData, basketID }); // Save the basket data with the correct ID
 
-      // Schedule notifications for the newly created basket
-      await scheduleNotifications({ ...newBasketData, basketID }); // Call scheduleNotifications
-
       notify(); // Notify success
     } catch (error) {
       alert(`Error creating basket: ,${error}`); // Log error
@@ -285,7 +281,9 @@ export default function CreateBasket() {
                 aria-label="Select Schedule Time"
                 onChange={(e) => setshceduleTime(e.target.value)}
               >
-                <option disabled>Date</option>
+                <option disabled selected>
+                  Time
+                </option>
                 {hours.map((hour) => (
                   <option key={hour} value={hour}>
                     {hour}

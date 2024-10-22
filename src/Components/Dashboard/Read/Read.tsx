@@ -78,12 +78,13 @@ export default function Read() {
   return (
     <>
       <div className="readNavbar bg-white border-b p-3">
-        <Link to={`/basket/${id}`}>
-          <div className="flex items-center gap-2">
-            <ArrowBackIcon />
-            <span>Back</span>
-          </div>
-        </Link>
+        <div
+          className="flex items-center gap-2"
+          onClick={() => navigate(`/basket/${id}`, { replace: true })}
+        >
+          <ArrowBackIcon />
+          <span>Back</span>
+        </div>
       </div>
       <div className="readNavBtns flex items-center justify-between p-3">
         <Button
