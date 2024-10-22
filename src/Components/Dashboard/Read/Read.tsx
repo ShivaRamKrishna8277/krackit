@@ -4,7 +4,6 @@ import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrow
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
 import { useNavigate, useParams } from "react-router";
-import { Link } from "react-router-dom";
 import {
   fetchQuestionDetails,
   Timing,
