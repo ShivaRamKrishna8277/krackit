@@ -17,6 +17,7 @@ interface personalDetails {
   name: string;
   email: string;
   uid: string;
+  mobile: string;
 }
 
 export default function Navbar() {
@@ -83,6 +84,9 @@ export default function Navbar() {
                 {personalDetails?.name}
               </p>
               <p className="email subTitle">{personalDetails?.email}</p>
+              {personalDetails?.mobile && (
+                <p className="mobile subTitle">{personalDetails?.email}</p>
+              )}
             </li>
             <li
               className="menuItem border-b"
