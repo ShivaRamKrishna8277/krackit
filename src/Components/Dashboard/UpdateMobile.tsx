@@ -32,6 +32,7 @@ export default function MobileModal({
     formState: { errors },
   } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = (data) => {
+    setWhatsappNumber(data.mobile);
     setOTPSent(true);
   };
 

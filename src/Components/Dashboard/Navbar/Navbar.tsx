@@ -6,7 +6,7 @@ import HomePageIcon from "../../../assets/icons/HomePageIcon.png";
 import CreateBasketIcon from "../../../assets/icons/CreateBasketIcon.png";
 import liveBasketIcon from "../../../assets/icons/liveBasketIcon.png";
 import completedBasketIcon from "../../../assets/icons/completedBasketIcon.png";
-// import settingsIcon from "../../../assets/icons/settingsIcon.png";
+import settingsIcon from "../../../assets/icons/settingsIcon.png";
 import arrowRightIcon from "../../../assets/icons/arrowRightIcon.svg";
 import { useEffect, useState } from "react";
 import Drawer from "@mui/material/Drawer";
@@ -124,7 +124,7 @@ export default function Navbar() {
               </div>
               <img src={arrowRightIcon} alt="open" className="arrowIcon" />
             </li>
-            {/* <li
+            <li
               className="menuItem border-b"
               onClick={() => menuClickHandler("/settings")}
             >
@@ -133,7 +133,7 @@ export default function Navbar() {
                 <span>Settings</span>
               </div>
               <img src={arrowRightIcon} alt="open" className="arrowIcon" />
-            </li> */}
+            </li>
             <li>
               <button
                 className="w-full bg-red-600 text-white py-2 my-4 rounded-sm"
