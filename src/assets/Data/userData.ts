@@ -68,6 +68,13 @@ export const fetchUserData = async (uid: string) => {
 };
 export default fetchUserData;
 
+// Function to set name in data variable
+export function setNewName(newName: string) {
+  if (data) {
+    data.name = newName;
+  }
+}
+
 // Function to empty data variable
 export function EmptyDataVariable() {
   data = null;

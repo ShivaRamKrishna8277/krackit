@@ -4,6 +4,9 @@ import InputGroup from "react-bootstrap/InputGroup";
 import { useState } from "react";
 import { getLocalDetails } from "@/assets/Data/userData";
 import MobileModal from "../UpdateMobile";
+import { ref, update } from "firebase/database";
+import { db } from "../../../../firebase";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export default function Settings() {
   const [showNameInput, setshowNameInput] = useState(false);
@@ -13,6 +16,37 @@ export default function Settings() {
   const [showModal, setShowModal] = useState(false);
   const handleOpenModal = () => setShowModal(true);
   const handleCloseModal = () => setShowModal(false);
+
+  // Change name function
+  const [newName, setNewName] = useState("");
+  const [isUpdating, setIsUpdating] = useState(false);
+  const changeName = async () => {
+    if (newName.length > 0) {
+      setIsUpdating(true);
+      const user = getLocalDetails();
+      const uid = user.uid;
+
+      const userRef = ref(db, `users/${uid}`);
+      try {
+        await update(userRef, { name: newName });
+        const personalInfo = {
+          uid: user.uid,
+          name: newName,
+          email: user.email,
+        };
+        localStorage.setItem("details", JSON.stringify(personalInfo));
+        setNewName(newName);
+      } catch (error) {
+        console.log(error);
+        alert(error);
+      } finally {
+        setTimeout(() => {
+          setIsUpdating(false);
+          setshowNameInput(false);
+        }, 1000);
+      }
+    }
+  };
   return (
     <>
       <Navbar />
@@ -44,8 +78,11 @@ export default function Settings() {
                   aria-label="Full Name"
                   aria-describedby="fullname"
                   className="shadow-none"
+                  onChange={(e) => setNewName(e.target.value)}
                 />
-                <InputGroup.Text id="fullnamesubmit">Submit</InputGroup.Text>
+                <InputGroup.Text id="fullnamesubmit" onClick={changeName}>
+                  {isUpdating ? <CircularProgress size="10px" /> : "Submit"}
+                </InputGroup.Text>
               </InputGroup>
             )}
           </li>
