@@ -29,7 +29,6 @@ export const signUp = async (email: string, password: string, name: string) => {
       email: user.email,
       name: name,
     });
-
     fetchUserData(user.uid);
 
     return user;

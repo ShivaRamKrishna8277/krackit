@@ -40,6 +40,7 @@ export interface UserData {
   userID: string;
   name: string;
   email: string;
+  mobile: number;
   allbaskets: {
     [id: string]: Basket;
   };

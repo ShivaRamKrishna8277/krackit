@@ -12,6 +12,7 @@ import Read from "./Components/Dashboard/Read/Read";
 import AuthStateCheck from "./Components/Loaders/AuthLoader";
 import ForgotPassword from "./Components/Authentication/ForgotPassword";
 import TypeBaskets from "./Components/Dashboard/TypeBakset/TypeBasket";
+import Settings from "./Components/Dashboard/Settings/Settings";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
         <Route path="/create-new-basket" element={<CreateBasket />} />
         <Route path="/live" element={<TypeBaskets type="pending" />} />
         <Route path="/completed" element={<TypeBaskets type="completed" />} />
+        <Route path="/settings" element={<Settings />} />
       </Routes>
     </div>
   );

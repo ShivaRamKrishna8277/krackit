@@ -105,7 +105,7 @@ export default function Login() {
                   message: "Password must atleast 6 characters.",
                 },
               })}
-              type="password"
+              type={ShowPassword ? "text" : "password"}
               placeholder="Password"
               id="loginPassword"
               className={errors.password && "errorBorder"}
