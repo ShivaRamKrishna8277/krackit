@@ -52,6 +52,7 @@ export const logIn = async (email: string, password: string) => {
         uid: userCredential.user.uid,
         name: userData.name,
         email: userData.email,
+        mobile: userData.mobile,
       };
     }
 

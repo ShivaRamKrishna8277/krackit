@@ -85,7 +85,7 @@ export default function Navbar() {
               </p>
               <p className="email subTitle">{personalDetails?.email}</p>
               {personalDetails?.mobile && (
-                <p className="mobile subTitle">{personalDetails?.email}</p>
+                <p className="mobile subTitle">{personalDetails?.mobile}</p>
               )}
             </li>
             <li
